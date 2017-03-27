@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <tx:annotation-driven transaction-manager="transactionManagerLegend"/>
+
+    <bean id="transactionManagerLegend" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+        <qualifier value="transaction" />
+    </bean>
+
+    <!-- MyBatis配置 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
+        <property name="typeAliasesPackage" value="com.manager.gradm.entity" />
+        <!-- 显式指定Mapper文件位置 -->
+        <property name="mapperLocations" value="classpath:/mybatis/**/*.xml" />
+    </bean>
+
+    <!-- 扫描basePackage下所有以@MyBatisRepository标识的 接口 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="basePackage" value="com.manager.gradm.dao" />
+        <property name="annotationClass" value="com.manager.gradm.dao.common.MyBatisRepository" />
+    </bean>
+
+<!--    &lt;!&ndash;报表统计&ndash;&gt;
+    <tx:annotation-driven transaction-manager="transactionManagerBI"/>
+
+    <bean id="transactionManagerBI" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSourceBI"/>
+        <qualifier value="transactionBI"/>
+    </bean>
+
+    &lt;!&ndash; MyBatis配置 &ndash;&gt;
+    <bean id="sqlSessionFactoryBI" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSourceBI"/>
+        &lt;!&ndash; 自动扫描entity目录, 省掉Configuration.xml里的手工配置 &ndash;&gt;
+        <property name="typeAliasesPackage" value="com.tqmall.legendm.bi.entity"/>
+        &lt;!&ndash; 显式指定Mapper文件位置 &ndash;&gt;
+        <property name="mapperLocations" value="classpath:/bi/mybatis/**/*.xml"/>
+    </bean>
+
+    &lt;!&ndash; 扫描basePackage下所有以@MyBatisRepository标识的 接口 &ndash;&gt;
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryBI"/>
+        <property name="basePackage" value="com.tqmall.legendm.bi.dao"/>
+        <property name="annotationClass" value="com.tqmall.legendm.dao.common.MyBatisRepository"/>
+    </bean>-->
+
+</beans>

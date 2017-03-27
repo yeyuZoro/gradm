@@ -1,0 +1,17 @@
+com/manager/gradm/biz/user/ManagerService.class
+com/manager/gradm/biz/user/impl/ManagerServiceImpl.class
+com/manager/gradm/biz/user/BackUserService.class
+com/manager/gradm/biz/order/OrderInfoService.class
+com/manager/gradm/biz/stock/impl/StockServiceImpl.class
+com/manager/gradm/biz/order/impl/OrderInfoServiceImpl.class
+com/manager/gradm/biz/stock/StockService.class
+com/manager/gradm/biz/goods/GoodsService.class
+com/manager/gradm/biz/goods/impl/GoodsServiceImpl.class
+com/manager/gradm/biz/pvg/impl/BackPermissionServiceImpl.class
+com/manager/gradm/biz/pvg/BackRoleService.class
+com/manager/gradm/biz/base/BaseServiceImpl.class
+com/manager/gradm/biz/pvg/impl/BackRoleServiceImpl.class
+com/manager/gradm/biz/user/impl/BackUserServiceImpl.class
+com/manager/gradm/biz/base/BaseService.class
+com/manager/gradm/biz/pvg/BackPermissionService.class
+com/manager/gradm/biz/common/DefaultPage.class

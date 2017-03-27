@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.manager.gradm.dao.goods.GoodsDao">
+
+    <resultMap id = "BaseResultMap" type = "Goods"
+               extends = "COMMON.BASE_RESULT_MAP">
+        <result column = "name" property = "name" />
+        <result column = "goods_sn" property = "goodsSn" />
+        <result column = "measure_unit" property = "measureUnit" />
+        <result column = "price" property = "price" />
+        <result column = "stock" property = "stock" />
+        <result column = "category_id" property = "categoryId" />
+        <result column = "goods_brand" property = "goodsBrand" />
+    </resultMap>
+
+    <sql id = "BaseColumnList">
+        <include refid = "COMMON.BASE_COLUMN_LIST" />
+        name as name,
+        goods_sn as goodsSn,
+        measure_unit as measureUnit,
+        price as price,
+        stock as stock,
+        category_id as categoryId,
+        goods_brand as goodsBrand
+    </sql>
+
+    <sql id = "BaseWhereClause">
+        <where>
+            <trim prefixOverrides = "and">
+                <include refid = "COMMON.BASE_WHERE_CLAUSE" />
+                <if test = "name != null">
+                    and name = #{name}
+                </if>
+                <if test = "goodsSn != null">
+                    and goods_sn = #{goodsSn}
+                </if>
+                <if test = "measureUnit != null">
+                    and measure_unit = #{measureUnit}
+                </if>
+                <if test = "price != null">
+                    and price = #{price}
+                </if>
+                <if test = "stock != null">
+                    and stock = #{stock}
+                </if>
+                <if test = "categoryId != null">
+                    and category_id = #{categoryId}
+                </if>
+                <if test = "goodsBrand != null">
+                    and goods_brand = #{goodsBrand}
+                </if>
+                <if test = "contentLike != null">
+                    and (
+                    name like CONCAT ('%',#{contentLike}, '%')
+                    or
+                    goods_sn  like CONCAT ('%',#{contentLike}, '%')
+                    or
+                    goods_brand  like CONCAT ('%',#{contentLike}, '%')
+                    )
+                </if>
+            </trim>
+        </where>
+    </sql>
+
+    <sql id = "BaseUpdateSet">
+        <set>
+            <include refid = "COMMON.BASE_UPDATE_SET" />
+            <if test = "name != null">
+                name = #{name},            </if>
+            <if test = "goodsSn != null">
+                goods_sn = #{goodsSn},            </if>
+            <if test = "measureUnit != null">
+                measure_unit = #{measureUnit},            </if>
+            <if test = "price != null">
+                price = #{price},            </if>
+            <if test = "stock != null">
+                stock = #{stock},            </if>
+            <if test = "categoryId != null">
+                category_id = #{categoryId},            </if>
+            <if test = "goodsBrand != null">
+                goods_brand = #{goodsBrand}            </if>
+        </set>
+    </sql>
+
+    <!-- 查询总数 -->
+    <select id = "selectCount" resultType = "java.lang.Integer">
+        select count(id)
+        from gradm_goods
+        <include refid = "BaseWhereClause" />
+    </select>
+
+    <!-- 查询 -->
+    <select id = "select" resultMap = "BaseResultMap">
+        select
+        <include refid = "BaseColumnList" />
+        from gradm_goods
+        <include refid = "BaseWhereClause" />
+        <include refid = "COMMON.ORDER_BY" />
+        <include refid = "COMMON.LIMIT" />
+    </select>
+
+    <!-- 根据ID查询 -->
+    <select id = "selectById" resultMap = "BaseResultMap">
+        select
+        <include refid = "BaseColumnList" />
+        from gradm_goods
+        where id = #{id}
+    </select>
+
+    <!-- 根据IDS批量删除 -->
+    <update id = "deleteByIds">
+        update gradm_goods
+        set is_deleted='Y'
+        where id in
+        (
+        <foreach collection = "array" index = "index" item = "tag" separator = ",">
+            #{tag}
+        </foreach>
+        )
+    </update>
+
+    <!-- 根据ID删除 -->
+    <update id = "deleteById">
+        update gradm_goods
+        set is_deleted='Y'
+        where id=#{id}
+    </update>
+
+    <!-- 删除 -->
+    <delete id = "delete">
+        update gradm_goods
+        set is_deleted='Y'
+        <include refid = "BaseWhereClause" />
+    </delete>
+
+    <!-- 添加   -->
+    <insert id = "insert" useGeneratedKeys = "true" keyProperty = "id">
+        insert into gradm_goods (
+        <include refid = "COMMON.BASE_INSERT_COLUMN" />
+        name,
+        goods_sn,
+        measure_unit,
+        price,
+        stock,
+        category_id,
+        goods_brand
+        )
+        values (
+        <include refid = "COMMON.BASE_INSERT_VALUE" />
+        #{name},
+        #{goodsSn},
+        #{measureUnit},
+        #{price},
+        #{stock},
+        #{categoryId},
+        #{goodsBrand}
+        )
+    </insert>
+
+    <!-- 通过ID更新 -->
+    <update id = "updateById">
+        update gradm_goods
+        <include refid = "BaseUpdateSet" />
+        where id = #{id}
+    </update>
+
+</mapper> 

@@ -1,0 +1,25 @@
+.page-container.row-fluid {
+}
+
+.page-header-fixed .page-container {
+    margin-top: 42px;
+}
+
+.page-container {
+    margin: 0px;
+    padding: 0px;
+}
+
+.row-fluid {
+    width: 100%;
+}
+
+.row-fluid {
+    width: 100%;
+}
+
+div, input, select, textarea, span, img, table, td, th, p, a, button, ul, li {
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+}

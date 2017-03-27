@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.manager.gradm.dao.user.ManagerDao">
+
+    <resultMap id = "BaseResultMap" type = "Manager"
+               extends = "COMMON.BASE_RESULT_MAP">
+        <result column = "name" property = "name" />
+        <result column = "mobile" property = "mobile" />
+        <result column = "is_admin" property = "isAdmin" />
+        <result column = "gender" property = "gender" />
+        <result column = "identity_card" property = "identityCard" />
+        <result column = "age" property = "age" />
+    </resultMap>
+
+    <sql id = "BaseColumnList">
+        <include refid = "COMMON.BASE_COLUMN_LIST" />
+        name as name,
+        mobile as mobile,
+        is_admin as isAdmin,
+        gender as gender,
+        identity_card as identityCard,
+        age as age
+    </sql>
+
+    <sql id = "BaseWhereClause">
+        <where>
+            <trim prefixOverrides = "and">
+                <include refid = "COMMON.BASE_WHERE_CLAUSE" />
+                <if test = "name != null">
+                    and name = #{name}
+                </if>
+                <if test = "mobile != null">
+                    and mobile = #{mobile}
+                </if>
+                <if test = "isAdmin != null">
+                    and is_admin = #{isAdmin}
+                </if>
+                <if test = "gender != null">
+                    and gender = #{gender}
+                </if>
+                <if test = "identityCard != null">
+                    and identity_card = #{identityCard}
+                </if>
+                <if test = "age != null">
+                    and age = #{age}
+                </if>
+                <if test = "nameLike != null">
+                    and name like CONCAT ('%',#{nameLike}, '%')
+                </if>
+                <if test = "mobileLike != null">
+                    and mobile like CONCAT ('%',#{mobileLike}, '%')
+                </if>
+            </trim>
+        </where>
+    </sql>
+
+    <sql id = "BaseUpdateSet">
+        <set>
+            <include refid = "COMMON.BASE_UPDATE_SET" />
+            <if test = "name != null">
+                name = #{name},
+            </if>
+            <if test = "mobile != null">
+                mobile = #{mobile},
+            </if>
+            <if test = "isAdmin != null">
+                is_admin = #{isAdmin},
+            </if>
+            <if test = "gender != null">
+                gender = #{gender},
+            </if>
+            <if test = "identityCard != null">
+                identity_card = #{identityCard},
+            </if>
+            <if test = "age != null">
+                age = #{age}
+            </if>
+        </set>
+    </sql>
+
+    <!-- 查询总数 -->
+    <select id = "selectCount" resultType = "java.lang.Integer">
+        select count(id)
+        from gradm_manager
+        <include refid = "BaseWhereClause" />
+    </select>
+
+    <!-- 查询 -->
+    <select id = "select" resultMap = "BaseResultMap">
+        select
+        <include refid = "BaseColumnList" />
+        from gradm_manager
+        <include refid = "BaseWhereClause" />
+        <include refid = "COMMON.ORDER_BY" />
+        <include refid = "COMMON.LIMIT" />
+    </select>
+
+    <!-- 根据ID查询 -->
+    <select id = "selectById" resultMap = "BaseResultMap">
+        select
+        <include refid = "BaseColumnList" />
+        from gradm_manager
+        where id = #{id}
+    </select>
+
+    <!-- 根据IDS批量删除 -->
+    <update id = "deleteByIds">
+        update gradm_manager
+        set is_deleted='Y'
+        where id in
+        (
+        <foreach collection = "array" index = "index" item = "tag" separator = ",">
+            #{tag}
+        </foreach>
+        )
+    </update>
+
+    <!-- 根据ID删除 -->
+    <update id = "deleteById">
+        update gradm_manager
+        set is_deleted='Y'
+        where id=#{id}
+    </update>
+
+    <!-- 删除 -->
+    <delete id = "delete">
+        update gradm_manager
+        set is_deleted='Y'
+        <include refid = "BaseWhereClause" />
+    </delete>
+
+    <!-- 添加   -->
+    <insert id = "insert" useGeneratedKeys = "true" keyProperty = "id">
+        insert into gradm_manager (
+        <include refid = "COMMON.BASE_INSERT_COLUMN" />
+        name,
+        mobile,
+        is_admin,
+        gender,
+        identity_card,
+        age
+        )
+        values (
+        <include refid = "COMMON.BASE_INSERT_VALUE" />
+        #{name},
+        #{mobile},
+        #{isAdmin},
+        #{gender},
+        #{identityCard},
+        #{age}
+        )
+    </insert>
+
+    <!-- 通过ID更新 -->
+    <update id = "updateById">
+        update gradm_manager
+        <include refid = "BaseUpdateSet" />
+        where id = #{id}
+    </update>
+
+</mapper>

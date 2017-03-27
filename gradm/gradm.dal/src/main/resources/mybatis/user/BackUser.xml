@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.manager.gradm.dao.user.BackUserDao">
+
+    <resultMap id = "BaseResultMap" type = "BackUser"
+               extends = "COMMON.BASE_RESULT_MAP">
+        <result column = "manager_id" property = "managerId" />
+        <result column = "is_admin" property = "isAdmin" />
+        <result column = "role_id" property = "roleId" />
+        <result column = "permission_ids" property = "permissionIds" />
+        <result column = "user_name" property = "userName" />
+        <result column = "password" property = "password" />
+        <result column = "name" property = "name" />
+    </resultMap>
+
+    <sql id = "BaseColumnList">
+        <include refid = "COMMON.BASE_COLUMN_LIST" />
+        manager_id as managerId,
+        is_admin as isAdmin,
+        role_id as roleId,
+        permission_ids as permissionIds,
+        user_name as userName,
+        password as password,
+        name as name
+    </sql>
+
+    <sql id = "BaseWhereClause">
+        <where>
+            <trim prefixOverrides = "and">
+                <include refid = "COMMON.BASE_WHERE_CLAUSE" />
+                <if test = "managerId != null">
+                    and manager_id = #{managerId}
+                </if>
+                <if test = "isAdmin != null">
+                    and is_admin = #{isAdmin}
+                </if>
+                <if test = "roleId != null">
+                    and role_id = #{roleId}
+                </if>
+                <if test = "permissionIds != null">
+                    and permission_ids = #{permissionIds}
+                </if>
+                <if test = "userName != null">
+                    and user_name = #{userName}
+                </if>
+                <if test = "password != null">
+                    and password = #{password}
+                </if>
+                <if test = "name != null">
+                    and name = #{name}
+                </if>
+                <if test = "nameLike != null">
+                    and name like CONCAT ('%', #{nameLike}, '%')
+                </if>
+            </trim>
+        </where>
+    </sql>
+
+    <sql id = "BaseUpdateSet">
+        <set>
+            <include refid = "COMMON.BASE_UPDATE_SET" />
+            <if test = "managerId != null">
+                manager_id = #{managerId},            </if>
+            <if test = "isAdmin != null">
+                is_admin = #{isAdmin},            </if>
+            <if test = "roleId != null">
+                role_id = #{roleId},            </if>
+            <if test = "permissionIds != null">
+                permission_ids = #{permissionIds},            </if>
+            <if test = "userName != null">
+                user_name = #{userName},            </if>
+            <if test = "password != null">
+                password = #{password},            </if>
+            <if test = "name != null">
+                name = #{name}            </if>
+        </set>
+    </sql>
+
+    <!-- 查询总数 -->
+    <select id = "selectCount" resultType = "java.lang.Integer">
+        select count(id)
+        from gradm_back_user
+        <include refid = "BaseWhereClause" />
+    </select>
+
+    <!-- 查询 -->
+    <select id = "select" resultMap = "BaseResultMap">
+        select
+        <include refid = "BaseColumnList" />
+        from gradm_back_user
+        <include refid = "BaseWhereClause" />
+        <include refid = "COMMON.ORDER_BY" />
+        <include refid = "COMMON.LIMIT" />
+    </select>
+
+    <!-- 根据ID查询 -->
+    <select id = "selectById" resultMap = "BaseResultMap">
+        select
+        <include refid = "BaseColumnList" />
+        from gradm_back_user
+        where id = #{id}
+    </select>
+
+    <!-- 根据IDS批量删除 -->
+    <update id = "deleteByIds">
+        update gradm_back_user
+        set is_deleted='Y'
+        where id in
+        (
+        <foreach collection = "array" index = "index" item = "tag" separator = ",">
+            #{tag}
+        </foreach>
+        )
+    </update>
+
+    <!-- 根据ID删除 -->
+    <update id = "deleteById">
+        update gradm_back_user
+        set is_deleted='Y'
+        where id=#{id}
+    </update>
+
+    <!-- 删除 -->
+    <delete id = "delete">
+        update gradm_back_user
+        set is_deleted='Y'
+        <include refid = "BaseWhereClause" />
+    </delete>
+
+    <!-- 添加   -->
+    <insert id = "insert" useGeneratedKeys = "true" keyProperty = "id">
+        insert into gradm_back_user (
+        <include refid = "COMMON.BASE_INSERT_COLUMN" />
+        manager_id,
+        is_admin,
+        role_id,
+        permission_ids,
+        user_name,
+        password,
+        name
+        )
+        values (
+        <include refid = "COMMON.BASE_INSERT_VALUE" />
+        #{managerId},
+        #{isAdmin},
+        #{roleId},
+        #{permissionIds},
+        #{userName},
+        #{password},
+        #{name}
+        )
+    </insert>
+
+    <!-- 通过ID更新 -->
+    <update id = "updateById">
+        update gradm_back_user
+        <include refid = "BaseUpdateSet" />
+        where id = #{id}
+    </update>
+
+</mapper> 
