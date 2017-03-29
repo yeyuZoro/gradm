@@ -53,6 +53,7 @@ public class GoodsController {
         searchParam = ServletUtils.getParametersMapStartWith(request);
         DefaultPage<Goods> page = (DefaultPage<Goods>) goodsService.getGoodsList(pageable, searchParam);
         page.setPageUri(request.getRequestURI());
+
         return Result.wrapSuccessfulResult(page);
     }
 
