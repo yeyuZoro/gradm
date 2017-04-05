@@ -2,13 +2,13 @@
 <application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.zeroturnaround.com" xsi:schemaLocation="http://www.zeroturnaround.com http://www.zeroturnaround.com/alderaan/rebel-2_0.xsd">
 
 	<classpath>
-		<dir name="/Users/long/Documents/&#30334;&#24230;&#20113;/&#30334;&#24230;&#20113;&#21516;&#27493;&#30424;/windows&#20445;&#23384;&#25991;&#20214;/G&#30424;/gradm/gradm.web/target/classes">
+		<dir name="/Users/long/Documents/bak-workspace/gradm/gradm/gradm.web/target/classes">
 		</dir>
 	</classpath>
 
 	<web>
 		<link target="/">
-			<dir name="/Users/long/Documents/&#30334;&#24230;&#20113;/&#30334;&#24230;&#20113;&#21516;&#27493;&#30424;/windows&#20445;&#23384;&#25991;&#20214;/G&#30424;/gradm/gradm.web/src/main/webapp">
+			<dir name="/Users/long/Documents/bak-workspace/gradm/gradm/gradm.web/src/main/webapp">
 			</dir>
 		</link>
 	</web>

@@ -3,21 +3,14 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
-    <context:property-placeholder location="/WEB-INF/application.properties" />
+    <context:property-placeholder order="40" ignore-unresolvable="true" location="/WEB-INF/application.properties" />
 
-    <import resource="data-context.xml" />
-    <!--<import resource="app-base.xml" />-->
-    <import resource = "spring-servlet.xml"/>
 
     <context:component-scan base-package="com.manager"/>
 
-    <import resource="mybatis-config.xml" />
-<!--    <import resource="remote-service.xml"/>
-    <import resource="openid-config.xml" />-->
+    <import resource = "spring-servlet.xml"/>
     <import resource="spring-mvc.xml" />
-   <import resource="schedule-config.xml"/>
-<!--     <import resource="quartz.xml"/>
-    <import resource="remote-dubbo-service.xml"/>
-    <import resource="message-config.xml"/>-->
-    <!--<import resource="memcache-config.xml"/>-->
+    <import resource="classpath*:biz-context.xml"/>
+    <import resource="schedule-config.xml"/>
+
 </beans>

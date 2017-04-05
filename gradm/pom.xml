@@ -19,23 +19,12 @@
         <java-version>1.7</java-version>
         <org.springframework-version>4.0.5.RELEASE</org.springframework-version>
         <spring.security.version>3.1.4.RELEASE</spring.security.version>
+        <project.version>1.0</project.version>
+        <junit.version>4.9</junit.version>
     </properties>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.zeroturnaround</groupId>
-                <artifactId>jrebel-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>generate-rebel-xml</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -134,11 +123,6 @@
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-web</artifactId>
                 <version>3.1.4.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>gradm</groupId>
-                <artifactId>gradm.biz</artifactId>
-                <version>1.0</version>
             </dependency>
             <dependency>
                 <groupId>commons-httpclient</groupId>
@@ -487,12 +471,6 @@
                 <artifactId>commons-beanutils</artifactId>
                 <version>1.8.3</version>
             </dependency>
-            <!-- Required only when you are using JAX-RS Client -->
-            <dependency>
-                <groupId>org.glassfish.jersey.core</groupId>
-                <artifactId>jersey-client</artifactId>
-                <version>2.13</version>
-            </dependency>
             <!--生成二维码-->
             <dependency>
                 <groupId>com.google.zxing</groupId>
@@ -504,6 +482,12 @@
                 <groupId>javax.mail</groupId>
                 <artifactId>mail</artifactId>
                 <version>1.4.7</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
