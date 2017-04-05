@@ -1,4 +1,6 @@
-cal-values.conf
+gradm.web/logs
+**/node_modules
+local-values.conf
 target
 *~
 bin
@@ -14,10 +16,15 @@ bin
 */test-output/**
 */target/**
 *.log
-gradm.ipr
-gradm.iws
+legend.ipr
+legend.iws
 antx.properties
 rebel.xml
-gradm.web/logs
-src/test/
+.ropeproject
+*.orig
+templates_target/
 .sonar/
+gradm.web/target/**
+
+src/main/java/com/manager/gradm/entity/supplier/
+src/main/resources/mybatis/supplier/
