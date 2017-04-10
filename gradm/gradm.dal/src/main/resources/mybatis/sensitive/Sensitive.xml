@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.manager.gradm.dao.sensitive.SensitiveDao">
+    <resultMap id = "BaseResultMap" type = "Sensitive"
+               extends = "COMMON.BASE_RESULT_MAP">
+        <result column = "sensitive" property = "sensitive" />
+        <result column = "sensitive_level" property = "sensitiveLevel" />
+
+    </resultMap>
+    <sql id = "BaseColumnList">
+        <include refid = "COMMON.BASE_COLUMN_LIST" />
+        sensitive as  sensitive，
+        sensitive_level as sensitiveLevel
+    </sql>
+    <sql id = "BaseWhereClause">
+        <where>
+            <trim prefixOverrides = "and">
+                <include refid = "COMMON.BASE_WHERE_CLAUSE" />
+                <if test = "sensitive != null">
+                    and name = #{sensitive}
+                </if>
+                <if test = "sensitiveLevle != null">
+                    and sensitive_levle = #{sensitiveLevle}
+                </if>
+                <if test = "contentLike != null">
+                    and (
+                    sensitive like CONCAT ('%',#{contentLike}, '%')
+                    or
+                    sensitive_level  like CONCAT ('%',#{contentLike}, '%')
+                    )
+                </if>
+            </trim>
+        </where>
+    </sql>
+    <!-- 查询总数 -->
+    <select id = "selectCount" resultType = "java.lang.Integer">
+        select count(id)
+        from gradm_sensitive
+        <include refid = "BaseWhereClause" />
+    </select>
+
+    <!-- 查询 -->
+    <select id = "select" resultMap = "BaseResultMap">
+        select
+        <include refid = "BaseColumnList" />
+        from gradm_goods
+        <include refid = "BaseWhereClause" />
+        <include refid = "COMMON.ORDER_BY" />
+        <include refid = "COMMON.LIMIT" />
+    </select>
+
+
+
+    <!-- 根据铭感级别批量删除 -->
+    <update id = "deleteByIds">
+        update gradm_sensitive
+        set is_deleted='Y'
+        where id in
+        (
+        <foreach collection = "array" index = "index" item = "tag" separator = ",">
+            #{tag}
+        </foreach>
+        )
+    </update>
+
+
+    <update id = "deleteById">
+        update gradm_goods
+        set is_deleted='Y'
+        where id=#{id}
+    </update>
+
+    <!-- 删除 -->
+    <delete id = "delete">
+        update gradm_goods
+        set is_deleted='Y'
+        <include refid = "BaseWhereClause" />
+    </delete>
+
+    <!-- 添加   -->
+    <insert id = "insert" useGeneratedKeys = "true" keyProperty = "id">
+        insert into gradm_goods (
+        <include refid = "COMMON.BASE_INSERT_COLUMN" />
+       sensitive,
+        sensitive_level
+        )
+        values (
+        <include refid = "COMMON.BASE_INSERT_VALUE" />
+        #{sensitive},
+        #{sensitive_level}
+
+        )
+    </insert>
+
+    <!-- 通过ID更新 -->
+    <update id = "updateById">
+        update gradm_sensitive
+        <include refid = "BaseUpdateSet" />
+        where id = #{id}
+    </update>
+
+</mapper>
