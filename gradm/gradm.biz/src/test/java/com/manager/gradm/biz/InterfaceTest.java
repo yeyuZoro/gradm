@@ -1,6 +1,5 @@
 package com.manager.gradm.biz;
 
-import com.manager.gradm.biz.common.DefaultPage;
 import com.manager.gradm.biz.goods.GoodsService;
 import com.manager.gradm.biz.sensitive.SensitiveService;
 import com.manager.gradm.biz.sensitive.impl.SensitiveServiceImpl;
@@ -11,14 +10,13 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.junit.runner.RunWith;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -69,7 +67,7 @@ public class InterfaceTest {
     }
 
     @Test
-    public void intefaceTest01() {
+    public void interfaceTest01() {
         int pageNum = 1;
         int size = 12;
         Pageable pageable = new PageRequest(pageNum, size);
