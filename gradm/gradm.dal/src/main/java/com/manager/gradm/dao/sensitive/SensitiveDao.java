@@ -10,6 +10,6 @@ import java.util.List;
  * Created by Administrator on 2017/3/17.
  */
 @MyBatisRepository
-public interface SensitiveDao extends BaseDao {
+public interface SensitiveDao extends BaseDao<Sensitive> {
     List<Sensitive> selectSensitive(Object id);
 }

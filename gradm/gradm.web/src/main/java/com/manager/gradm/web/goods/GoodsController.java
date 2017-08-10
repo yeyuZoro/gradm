@@ -59,7 +59,7 @@ public class GoodsController {
 
     @RequestMapping("/edit")
     public String goodsEdit(@RequestParam(value = "id", required = false) Long id, Model model) {
-        log.info("[配件列表]");
+        log.info("[配件信息]");
         if (null != id) {
             Goods goods = goodsService.selectById(id);
             if (null != goods) {

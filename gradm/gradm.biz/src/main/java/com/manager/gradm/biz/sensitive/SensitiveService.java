@@ -12,4 +12,5 @@ import java.util.Map;
 public interface SensitiveService {
     public Page<Sensitive> getSensitiveList(Pageable pageable, Map<String, Object> searchPage);
 
+    Sensitive selectById(Long id);
 }

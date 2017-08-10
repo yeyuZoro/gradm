@@ -3,6 +3,7 @@ package com.manager.gradm.biz.sensitive.impl;
 import com.manager.gradm.biz.base.BaseServiceImpl;
 import com.manager.gradm.biz.common.DefaultPage;
 import com.manager.gradm.biz.sensitive.SensitiveService;
+import com.manager.gradm.common.Result;
 import com.manager.gradm.dao.sensitive.SensitiveDao;
 import com.manager.gradm.entity.sensitive.Sensitive;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +33,7 @@ public SensitiveDao sensitiveDao;
 
 @Override
     public Page<Sensitive> getSensitiveList(Pageable pageable, Map<String,Object>searchParams){
-        log.info("名感词表");
+        log.info("敏感词表");
 
         if (pageable.getSort()!=null){
             Iterator<Sort.Order> iterator = pageable.getSort().iterator();
@@ -58,5 +59,12 @@ public SensitiveDao sensitiveDao;
     DefaultPage<Sensitive> page=new DefaultPage<Sensitive>(date,pageRequest,totaSize);
     return page;
     }
+
+    @Override
+    public Sensitive selectById(Long id){
+        Sensitive sensitive=sensitiveDao.selectById(id);
+        return sensitive;
+    }
+    //public Result
 
 }

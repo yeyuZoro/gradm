@@ -2,36 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace = "com.manager.gradm.dao.sensitive.SensitiveDao">
+
     <resultMap id = "BaseResultMap" type = "Sensitive"
                extends = "COMMON.BASE_RESULT_MAP">
-        <result column = "sensitive" property = "sensitive" />
+        <result column = "sensitive_content" property = "sensitiveContent" />
         <result column = "sensitive_level" property = "sensitiveLevel" />
-
     </resultMap>
+
     <sql id = "BaseColumnList">
         <include refid = "COMMON.BASE_COLUMN_LIST" />
-        sensitive as  sensitive，
+        sensitive_content as sensitiveContent,
         sensitive_level as sensitiveLevel
     </sql>
+
     <sql id = "BaseWhereClause">
         <where>
             <trim prefixOverrides = "and">
                 <include refid = "COMMON.BASE_WHERE_CLAUSE" />
-                <if test = "sensitive != null">
-                    and name = #{sensitive}
+                <if test = "sensitiveContent != null">
+                    and sensitive_content = #{sensitiveContent}
                 </if>
-                <if test = "sensitiveLevle != null">
-                    and sensitive_levle = #{sensitiveLevle}
-                </if>
-                <if test = "contentLike != null">
-                    and (
-                    sensitive like CONCAT ('%',#{contentLike}, '%')
-                    or
-                    sensitive_level  like CONCAT ('%',#{contentLike}, '%')
-                    )
+                <if test = "sensitiveLevel != null">
+                    and sensitive_level = #{sensitiveLevel}
                 </if>
             </trim>
         </where>
+    </sql>
+
+    <sql id = "BaseUpdateSet">
+        <set>
+            <include refid = "COMMON.BASE_UPDATE_SET" />
+            <if test = "sensitiveContent != null">
+                sensitive_content = #{sensitiveContent},            </if>
+            <if test = "sensitivesLevel != null">
+                sensitive_level = #{sensitiveLevel}            </if>
+        </set>
     </sql>
     <!-- 查询总数 -->
     <select id = "selectCount" resultType = "java.lang.Integer">
@@ -44,7 +49,7 @@
     <select id = "select" resultMap = "BaseResultMap">
         select
         <include refid = "BaseColumnList" />
-        from gradm_goods
+        from gradm_sensitive
         <include refid = "BaseWhereClause" />
         <include refid = "COMMON.ORDER_BY" />
         <include refid = "COMMON.LIMIT" />
@@ -66,29 +71,29 @@
 
 
     <update id = "deleteById">
-        update gradm_goods
+        update gradm_sensitive
         set is_deleted='Y'
         where id=#{id}
     </update>
 
     <!-- 删除 -->
     <delete id = "delete">
-        update gradm_goods
+        update gradm_sensitive
         set is_deleted='Y'
         <include refid = "BaseWhereClause" />
     </delete>
 
     <!-- 添加   -->
     <insert id = "insert" useGeneratedKeys = "true" keyProperty = "id">
-        insert into gradm_goods (
+        insert into gradm_sensitive (
         <include refid = "COMMON.BASE_INSERT_COLUMN" />
-       sensitive,
+        sensitive_content,
         sensitive_level
         )
         values (
         <include refid = "COMMON.BASE_INSERT_VALUE" />
-        #{sensitive},
-        #{sensitive_level}
+        #{sensitiveContent},
+        #{sensitiveLevel}
 
         )
     </insert>

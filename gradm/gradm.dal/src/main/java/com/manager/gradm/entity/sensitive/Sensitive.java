@@ -11,6 +11,6 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class Sensitive extends BaseEntity {
-    private String sersitive;
-    private int sensitiveLevel;
+    private String sensitiveContent;
+    private Long sensitiveLevel;
 }
